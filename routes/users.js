@@ -7,8 +7,7 @@ require("dotenv").config();
 router.get("/api/register",async (req,res)=>
 {
 
-    const {Phone}=req.query;
-    const {Password}=req.query;
+    const {Phone,Password}=req.query;
     const queryObject={};
 
     //console.log(Phone);
@@ -16,6 +15,10 @@ router.get("/api/register",async (req,res)=>
     if(Phone)
     {
         queryObject.Phone=Phone;
+    }
+    if(Password)
+    {
+        queryObject.Password=Password;
     }
 
     console.log("working");
@@ -25,12 +28,11 @@ router.get("/api/register",async (req,res)=>
        console.log(getData);
         if(getData.length==0)
         {
-            res.send("User not found");
+            res.send("User not found/Password incorrect");
         }
         else
         {
-            if(Password===getData.Password)res.send(getData);
-            else  res.send("wrong password"); 
+            res.send(getData);
         }
     }catch(e){}
 })
@@ -53,13 +55,16 @@ router.post('/api/register',async (req,res)=>
 router.get("/api/doctor",async (req,res)=>
 {
 //res.send("hey");
-    const {DoctorId}=req.query;
-    const {Password}=req.query;
+    const {DoctorId,Password}=req.query;
     const queryObject={};
 
     if(DoctorId)
     {
         queryObject.DoctorId=DoctorId;
+    }
+    if(Password)
+    {
+        queryObject.Password=Password;
     }
 
     console.log("working with doctor");
@@ -68,12 +73,11 @@ router.get("/api/doctor",async (req,res)=>
        const getData=await Doctor.find(queryObject);
         if(getData.length==0)
         {
-            res.send("Doctor not found");
+            res.send("Doctor not found/Password incorrect");
         }
         else
         {
-            if(Password===getData.Password)res.send(getData);
-            else  res.send("wrong password"); 
+            res.send(getData);
         }
     }catch(e){}
 })
