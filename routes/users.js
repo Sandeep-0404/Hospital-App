@@ -1,18 +1,18 @@
 const express=require('express');
 const router=express.Router();
 const User=require("../models/userSchema");
+const Doctor=require("../models/userSchema");
 require("dotenv").config();
 
-//hello
 router.get("/",async (req,res)=>
 {
 
-    const {Name}=req.query;
+    const {Phone,Password}=req.query;
     const queryObject={};
 
-    if(Name)
+    if(Phone)
     {
-        queryObject.Name=Name;
+        queryObject.Phone=Phone;
     }
 
     console.log("working");
@@ -25,7 +25,8 @@ router.get("/",async (req,res)=>
         }
         else
         {
-            res.send(getData); 
+            if(Password==getData.Password)res.send(getData);
+            else  res.send("wrong password"); 
         }
     }catch(e){}
 })
@@ -34,7 +35,7 @@ router.post('/',async (req,res)=>
 {
     try{
         const addRecord=await new User(req.body);
-       // console.log(addRecord);
+       console.log(addRecord.DoctorId);
         addRecord.save();
         res.status(201).send(addRecord);
     }catch(e)
@@ -43,9 +44,51 @@ router.post('/',async (req,res)=>
     }
 })
 
-router.get('/san',(req,res)=>
+
+
+// router.get("/doctor",async (req,res)=>
+// {
+// res.send("hey");
+//     const {DoctorId}=req.query;
+//     const queryObject={};
+
+//     if(DoctorId)
+//     {
+//         queryObject.DoctorId=DoctorId;
+//     }
+
+//     console.log("working with doctor");
+//     try{
+//         console.log(queryObject);
+//        const getData=await Doctor.find(queryObject);
+//         if(getData.length==0)
+//         {
+//             res.send("Doctor not found");
+//         }
+//         else
+//         {
+//             res.send(getData); 
+//         }
+//     }catch(e){}
+// })
+
+// router.post('/doctor',async (req,res)=>
+// {
+//     try{
+//         const addRecord=await new Doctor(req.body);
+//        console.log(addRecord.DoctorId);
+//         addRecord.save();
+//         res.status(201).send(addRecord);
+//     }catch(e)
+//     {
+//         console.log(e);
+//     }
+// })
+
+
+router.get('/cricket',(req,res)=>
 {
-    res.send("this is my wr=ork");
+    res.send("hello cricket");
 })
 
 module.exports=router;
