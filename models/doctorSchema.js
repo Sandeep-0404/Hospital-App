@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 
-const userSchema=new mongoose.Schema({
+
+const doctorList=new mongoose.Schema({
     Name:{
         type:String,
         required:true
@@ -28,11 +29,15 @@ const userSchema=new mongoose.Schema({
     },
     DoctorId:{
         type:String,
+        required:true,
     },
+    Certificate:{
+        type:String,
+        default:"123random.com"
+    }
 
 })
 
-const User=mongoose.model("User",userSchema);
 
-
-module.exports=User;
+const Doctor=mongoose.model("Doctor",doctorList);
+module.exports=Doctor;

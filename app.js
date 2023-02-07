@@ -10,12 +10,12 @@ const connectDB=require("./db/connect");
 
 app.use(express.json());
 
-app.get('/',(req,res)=>
-{
-    res.send("hey this is working new");
-})
+// app.get('/',(req,res)=>
+// {
+//     res.send("hey this is working new");
+// })
 
-app.use("/api/register",user_routes);
+app.use("/",user_routes);
 
 
 const start=async()=>
