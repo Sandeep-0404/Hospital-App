@@ -7,12 +7,12 @@ require("dotenv").config();
 router.get("/",async (req,res)=>
 {
 
-    const {name}=req.query;
+    const {Name}=req.query;
     const queryObject={};
 
-    if(name)
+    if(Name)
     {
-        queryObject.name=name;
+        queryObject.Name=Name;
     }
 
     console.log("working");
@@ -21,7 +21,7 @@ router.get("/",async (req,res)=>
        const getData=await  User.find(queryObject);
         if(getData.length==0)
         {
-            res.send();
+            res.send("User not found");
         }
         else
         {

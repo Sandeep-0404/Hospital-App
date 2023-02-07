@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.get('/',(req,res)=>
 {
-    res.send("hey this is working");
+    res.send("hey this is working new");
 })
 
 app.use("/api/register",user_routes);
