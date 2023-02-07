@@ -3,7 +3,7 @@ const router=express.Router();
 const User=require("../models/userSchema");
 require("dotenv").config();
 
-
+//hello
 router.get("/",async (req,res)=>
 {
 
