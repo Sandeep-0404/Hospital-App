@@ -34,6 +34,14 @@ const doctorList=new mongoose.Schema({
     Certificate:{
         type:String,
         default:"123random.com"
+    },
+    Rating:
+    {
+        type:String,
+        required:true,
+    },
+    Speciality:{
+        type:[String]
     }
 
 })

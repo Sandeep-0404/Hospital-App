@@ -4,13 +4,19 @@ const User=require("../models/userSchema");
 const Doctor=require("../models/doctorSchema");
 require("dotenv").config();
 
+// ################# Main Page #######################
+router.get("/",(req,res)=>
+{
+    res.send("hi this is hospital management app")
+});
+
+//####################### REGISTER USER ###############################
+
 router.get("/api/register",async (req,res)=>
 {
 
     const {Phone,Password}=req.query;
     const queryObject={};
-
-    //console.log(Phone);
 
     if(Phone)
     {
@@ -21,11 +27,10 @@ router.get("/api/register",async (req,res)=>
         queryObject.Password=Password;
     }
 
-    console.log("working");
+    console.log("working  with user");
     try{
-        console.log(queryObject);
        const getData=await  User.find(queryObject);
-       console.log(getData);
+    
         if(getData.length==0)
         {
             res.send("User not found/Password incorrect");
@@ -34,7 +39,9 @@ router.get("/api/register",async (req,res)=>
         {
             res.send(getData);
         }
-    }catch(e){}
+    }catch(e){
+        console.log(e);
+    }
 })
 
 router.post('/api/register',async (req,res)=>
@@ -50,12 +57,13 @@ router.post('/api/register',async (req,res)=>
     }
 })
 
-
+//####################### DOCTOR REGISTRATION ####################################
 
 router.get("/api/doctor",async (req,res)=>
 {
-//res.send("hey");
-    const {DoctorId,Password}=req.query;
+
+    // ###### Query #########
+    const {DoctorId,Password,Name,Speciality}=req.query;
     const queryObject={};
 
     if(DoctorId)
@@ -66,10 +74,17 @@ router.get("/api/doctor",async (req,res)=>
     {
         queryObject.Password=Password;
     }
+    if(Name)
+    {
+        queryObject.Name=Name;
+    }
+    if(Speciality)
+    {
+        queryObject.Speciality=Speciality;
+    }
 
     console.log("working with doctor");
     try{
-        console.log(queryObject);
        const getData=await Doctor.find(queryObject);
         if(getData.length==0)
         {
@@ -79,7 +94,9 @@ router.get("/api/doctor",async (req,res)=>
         {
             res.send(getData);
         }
-    }catch(e){}
+    }catch(e){
+        console.log(e);
+    }
 })
 
 router.post('/api/doctor',async (req,res)=>

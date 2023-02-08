@@ -1,23 +1,18 @@
 require('dotenv').config();
-
 const express=require('express');
 const app=express();
 const PORT= process.env.PORT || 8000;
-
 const user_routes=require('./routes/users');
-const doctor_routes=require('./routes/doctor');
 const connectDB=require("./db/connect");
-
 app.use(express.json());
 
-// app.get('/',(req,res)=>
-// {
-//     res.send("hey this is working new");
-// })
+// ############## Routes ########################
 
 app.use("/",user_routes);
 
 
+
+// ############## Listen ########################
 const start=async()=>
 {
     try{
