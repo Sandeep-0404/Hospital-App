@@ -76,11 +76,11 @@ router.get("/api/doctor",async (req,res)=>
     }
     if(Name)
     {
-        queryObject.Name=Name;
+        queryObject.Name={$regex:Name,$options:'i'};
     }
     if(Speciality)
     {
-        queryObject.Speciality=Speciality;
+        queryObject.Speciality={$regex:Speciality,$options:'i'};;
     }
 
     console.log("working with doctor");
