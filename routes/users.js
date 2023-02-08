@@ -74,18 +74,25 @@ router.get("/api/doctor",async (req,res)=>
     {
         queryObject.Password=Password;
     }
+
+    const nameObject={};
+    const specialityObject={};
+
     if(Name)
     {
-        queryObject.Name={$regex:Name,$options:'i'};
+        nameObject.Name={$regex:Name,$options:'i'};
     }
     if(Speciality)
     {
-        queryObject.Speciality={$regex:Speciality,$options:'i'};;
+        specialityObject.Speciality={$regex:Speciality,$options:'i'};;
     }
 
     console.log("working with doctor");
     try{
-       const getData=await Doctor.find(queryObject);
+
+       const getData=await Doctor.find({
+        $or:[queryObject,nameObject,specialityObject]
+       });
         if(getData.length==0)
         {
             res.send("Doctor not found/Password incorrect");
