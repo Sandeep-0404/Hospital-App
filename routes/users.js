@@ -177,12 +177,18 @@ router.get('/api/userimages',async (req,res)=>
 
 router.post('/api/userimages',upload.single('image'),async (req,res)=>
 {   
+    try{
     const getData=await new UserImage({
         phone:req.body.phone,
         image:`https://hospital-app-production.up.railway.app/profile/${req.file.filename}`
     })
     getData.save();
     res.send(getData);
+    }
+    catch(e)
+    {
+       throw new Error(e);
+    }
 })
 
 
