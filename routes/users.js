@@ -149,49 +149,12 @@ router.post('/api/images',async (req,res)=>
     }
 })
 
-// ################ User Images ##############
+// ############# APOINTMENT ################
 
-const storage=multer.diskStorage({
-    destination:'./upload/images',
-    filename:(req,file,cb)=>
-    {
-        return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
-    }
-})
-
-const upload=multer({
-    storage:storage
-})
-
-
-
-router.get('/api/userimages',async (req,res)=>
+router.get('/api/appointments',(req,res)=>
 {
-    try{
-        const getData=await UserImage.find({});
-        res.send(getData);
-    }catch(e){
-        console.log(e);
-    }
+    res.send("take appointment");
 })
-
-router.post('/api/userimages',upload.single('image'),async (req,res)=>
-{   
-    try{
-    const getData=await new UserImage({
-        phone:req.body.phone,
-        image:`https://hospital-app-production.up.railway.app/profile/${req.file.filename}`
-    })
-    getData.save();
-    res.send(getData);
-    }
-    catch(e)
-    {
-       throw new Error(e);
-    }
-})
-
-
 
 
 module.exports=router;
