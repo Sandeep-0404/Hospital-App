@@ -2,6 +2,10 @@ const express=require('express');
 const router=express.Router();
 const User=require("../models/userSchema");
 const Doctor=require("../models/doctorSchema");
+const Image=require("../models/randomImagesSchema");
+const multer=require('multer');
+const path=require('path');
+const UserImage=require("../models/userImages");
 require("dotenv").config();
 
 // ################# Main Page #######################
@@ -118,6 +122,70 @@ router.post('/api/doctor',async (req,res)=>
         console.log(e);
     }
 })
+
+// ################### Random Images #########################
+
+router.get("/api/images",async (req,res)=>
+{
+    try{
+        const getData=await Image.find({});
+        res.send(getData);
+    }catch(e){
+        console.log(e);
+    }
+  
+})
+
+
+router.post('/api/images',async (req,res)=>
+{
+    try{
+        const addRecord=await new Image(req.body);
+        addRecord.save();
+        res.status(201).send(addRecord);
+    }catch(e)
+    {
+        console.log(e);
+    }
+})
+
+// ################ User Images ##############
+
+const storage=multer.diskStorage({
+    destination:'./upload/images',
+    filename:(req,file,cb)=>
+    {
+        return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+    }
+})
+
+const upload=multer({
+    storage:storage
+})
+
+
+
+router.get('/api/userimages',async (req,res)=>
+{
+    try{
+        const getData=await UserImage.find({});
+        res.send(getData);
+    }catch(e){
+        console.log(e);
+    }
+})
+
+router.post('/api/userimages',upload.single('image'),async (req,res)=>
+{   
+    const getData=await new UserImage({
+        phone:req.body.phone,
+        image:`https://hospital-app-production.up.railway.app/profile/${req.file.filename}`
+    })
+    getData.save();
+    res.send(getData);
+})
+
+
 
 
 module.exports=router;

@@ -10,8 +10,7 @@ app.use(express.json());
 
 app.use("/",user_routes);
 
-
-
+app.use('/profile',express.static('upload/images'));
 // ############## Listen ########################
 const start=async()=>
 {
