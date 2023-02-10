@@ -41,7 +41,11 @@ const appUDSchema=new mongoose.Schema({
     },
     users:{
         type:[User],
-    }
+    },
+    status:
+    {
+        type:String,
+    },
 })
 // appUDSchema.plugin(uniqueValidator)
 
