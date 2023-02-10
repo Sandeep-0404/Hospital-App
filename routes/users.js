@@ -3,6 +3,7 @@ const router=express.Router();
 const User=require("../models/userSchema");
 const Doctor=require("../models/doctorSchema");
 const Image=require("../models/randomImagesSchema");
+const AppUD=require("../models/appud");
 const multer=require('multer');
 const path=require('path');
 const UserImage=require("../models/userImages");
@@ -61,18 +62,11 @@ router.post('/api/register',async (req,res)=>
     }
 })
 
-router.patch("/api/register",async(req,res)=>
+router.patch("/api/register/:Phone",async(req,res)=>
 {
-    const {Phone}=req.query;
-    const queryObject={};
-
-
-    if(Phone)
-    {
-        queryObject.Phone=Phone;
-    }
+    const Phone=req.params;
 try{
-   const getData=await User.findOneAndUpdate(queryObject,req.body,{new:true},(e,data)=>
+   const getData=await User.findOneAndUpdate(Phone,req.body,{new:true},(e,data)=>
    {
     if(e)console.log(e);
     else res.send(data);
@@ -173,10 +167,30 @@ router.post('/api/images',async (req,res)=>
 
 // ############# APOINTMENT ################
 
-router.get('/api/appointments',(req,res)=>
+router.get('/api/appointments/userdoctor',async (req,res)=>
 {
-    res.send("take appointment");
+    try{
+        const getData=await AppUD.find({});
+        res.send(getData);
+    }catch(e){
+        console.log(e);
+    }
 })
 
+router.post('/api/appointments/userdoctor',async (req,res)=>
+{
+    try{
+        const addData=await new AppUD(req.body);
+        addData.save();
+        res.send(addData);
+    }catch(e){
+        console.log(e);
+    }
+})
+
+router.get('/api/appointments/doctoruser',(req,res)=>
+{
+    res.send("take appointment doctor user");
+})
 
 module.exports=router;
