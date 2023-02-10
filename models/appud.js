@@ -1,16 +1,10 @@
 const mongoose=require("mongoose");
 
-const Chats=new mongoose.Schema({
-    sender:{
+const Doctor=new mongoose.Schema({
+    doctor:{
         type:String,
     },
-    msg:{
-        type:String,
-    }
-})
-
-const AppointmentDetails=new mongoose.Schema({
-   date:{
+    date:{
         type:String,
     },
     problem:{
@@ -29,19 +23,7 @@ const AppointmentDetails=new mongoose.Schema({
     doctorname:{
         type:String
     }
-})
-
-
-const Doctor=new mongoose.Schema({
-    doctor:{
-        type:String,
-    },
-    appointmentDetails:{
-        type:AppointmentDetails,
-    },
-    chats:{
-        type:[Chats],
-    }
+    
 })
 
 
