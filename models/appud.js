@@ -18,6 +18,16 @@ const AppointmentDetails=new mongoose.Schema({
     },
     image:{
         type:String,
+    },
+    status:
+    {
+        type:String,
+    },
+    username:{
+        type:String,
+    },
+    doctorname:{
+        type:String
     }
 })
 
@@ -37,10 +47,6 @@ const Doctor=new mongoose.Schema({
 
 const appUDSchema=new mongoose.Schema({
     user:{
-        type:String,
-    },
-    status:
-    {
         type:String,
     },
     doctors:{

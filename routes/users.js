@@ -170,8 +170,17 @@ router.post('/api/images',async (req,res)=>
 
 router.get('/api/appointments/userdoctor',async (req,res)=>
 {
+
+    const {user}=req.query;
+    const queryObject={};
+
+    if(user)
+    {
+        queryObject.user=user;
+    }
+
     try{
-        const getData=await AppUD.find({});
+        const getData=await AppUD.find(queryObject);
         res.send(getData);
     }catch(e){
         console.log(e);
