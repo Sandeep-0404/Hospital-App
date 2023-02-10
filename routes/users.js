@@ -198,6 +198,21 @@ router.post('/api/appointments/userdoctor',async (req,res)=>
     }
 })
 
+router.patch('/api/appointments/userdoctor/:user',async (req,res)=>
+{
+    const user=req.params;
+    try{
+       const getData=await AppUD.findOneAndUpdate(user,req.body,{new:true},(e,data)=>
+       {
+        if(e)console.log(e);
+        else res.send(data);
+       }).clone();
+    }
+    catch(e){
+        console.log(e);
+    }
+});
+
 router.get('/api/appointments/doctoruser',async (req,res)=>
 {
     try{
@@ -207,6 +222,8 @@ router.get('/api/appointments/doctoruser',async (req,res)=>
         console.log(e);
     }
 })
+
+
 
 router.post('/api/appointments/doctoruser',async (req,res)=>
 {
