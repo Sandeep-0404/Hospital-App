@@ -61,6 +61,20 @@ router.post('/api/register',async (req,res)=>
     }
 })
 
+router.patch("/api/register/:id",async(req,res)=>
+{
+try{
+    const _id=req.params.id;
+   const updateUser=await User.findByIdAndUpdate(_id,req.body,{
+    new:true,
+   });
+   res.send(updateUser);
+}
+catch(e){
+    console.log(e);
+}
+})
+
 //####################### DOCTOR REGISTRATION ####################################
 
 router.get("/api/doctor",async (req,res)=>
