@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express=require('express');
 const app=express();
+const bodyParser=require("body-parser");
 const PORT= process.env.PORT || 8000;
 const user_routes=require('./routes/users');
 const connectDB=require("./db/connect");
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended:true,parameterLimit:100000,limit:"500mb"}));
 
 // ############## Routes ########################
 
