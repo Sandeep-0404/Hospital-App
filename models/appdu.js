@@ -22,8 +22,8 @@ const AppointmentDetails=new mongoose.Schema({
 })
 
 
-const Doctor=new mongoose.Schema({
-    doctor:{
+const User=new mongoose.Schema({
+    user:{
         type:String,
     },
     appointmentDetails:{
@@ -36,16 +36,16 @@ const Doctor=new mongoose.Schema({
 
 
 const appUDSchema=new mongoose.Schema({
-    user:{
+    doctor:{
         type:String,
     },
-    doctors:{
-        type:[Doctor],
+    users:{
+        type:[User],
     }
 })
 // appUDSchema.plugin(uniqueValidator)
 
-const AppUD=mongoose.model("AppointmentUD",appUDSchema);
+const AppUD=mongoose.model("AppointmentDU",appUDSchema);
 
 
 module.exports=AppUD;

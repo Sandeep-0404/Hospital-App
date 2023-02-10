@@ -4,6 +4,7 @@ const User=require("../models/userSchema");
 const Doctor=require("../models/doctorSchema");
 const Image=require("../models/randomImagesSchema");
 const AppUD=require("../models/appud");
+const AppDU=require("../models/appdu");
 const multer=require('multer');
 const path=require('path');
 const UserImage=require("../models/userImages");
@@ -188,9 +189,25 @@ router.post('/api/appointments/userdoctor',async (req,res)=>
     }
 })
 
-router.get('/api/appointments/doctoruser',(req,res)=>
+router.get('/api/appointments/doctoruser',async (req,res)=>
 {
-    res.send("take appointment doctor user");
+    try{
+        const getData=await AppDU.find({});
+        res.send(getData);
+    }catch(e){
+        console.log(e);
+    }
+})
+
+router.post('/api/appointments/doctoruser',async (req,res)=>
+{
+    try{
+        const addData=await new AppDU(req.body);
+        addData.save();
+        res.send(addData);
+    }catch(e){
+        console.log(e);
+    }
 })
 
 module.exports=router;
