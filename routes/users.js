@@ -61,14 +61,22 @@ router.post('/api/register',async (req,res)=>
     }
 })
 
-router.patch("/api/register/:id",async(req,res)=>
+router.patch("/api/register",async(req,res)=>
 {
+    const {Phone}=req.query;
+    const queryObject={};
+
+
+    if(Phone)
+    {
+        queryObject.Phone=Phone;
+    }
 try{
-    const _id=req.params.id;
-   const updateUser=await User.findByIdAndUpdate(_id,req.body,{
-    new:true,
-   });
-   res.send(updateUser);
+   const getData=await User.findOneAndUpdate(queryObject,req.body,{new:true},(e,data)=>
+   {
+    if(e)console.log(e);
+    else res.send(data);
+   }).clone();
 }
 catch(e){
     console.log(e);
