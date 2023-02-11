@@ -5,6 +5,7 @@ const Doctor=require("../models/doctorSchema");
 const Image=require("../models/randomImagesSchema");
 const AppUD=require("../models/appud");
 const AppDU=require("../models/appdu");
+const QSchema=require("../models/quotes");
 const multer=require('multer');
 const path=require('path');
 const UserImage=require("../models/userImages");
@@ -235,5 +236,30 @@ router.post('/api/appointments/doctoruser',async (req,res)=>
         console.log(e);
     }
 })
+
+// ##################### Quotes #######################
+
+router.get('/api/quotes',async(req,res)=>
+{
+    try{
+        const getData=await QSchema.find({});
+        res.send(getData);
+    }catch(e){
+        console.log(e);
+    }
+})
+
+router.post("/api/quotes",async (req,res)=>
+{
+    try{
+        const addData=await new QSchema(req.body);
+        addData.save();
+        res.send(addData);
+    }catch(e){
+        console.log(e);
+    }
+})
+
+
 
 module.exports=router;
