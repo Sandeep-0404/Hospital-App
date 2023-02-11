@@ -216,8 +216,18 @@ router.patch('/api/appointments/userdoctor/:user',async (req,res)=>
 
 router.get('/api/appointments/doctoruser',async (req,res)=>
 {
+
+    const {doctor}=req.query;
+    const queryObject={};
+
+    if(doctor)
+    {
+        queryObject.doctor=doctor;
+    }
+
+
     try{
-        const getData=await AppDU.find({});
+        const getData=await AppDU.find(queryObject);
         res.send(getData);
     }catch(e){
         console.log(e);
@@ -236,6 +246,22 @@ router.post('/api/appointments/doctoruser',async (req,res)=>
         console.log(e);
     }
 })
+
+router.patch('/api/appointments/doctoruser/:doctor',async (req,res)=>
+{
+    const doctor=req.params;
+    try{
+       const getData=await AppDU.findOneAndUpdate(doctor,req.body,{new:true},(e,data)=>
+       {
+        if(e)console.log(e);
+        else res.send(data);
+       }).clone();
+    }
+    catch(e){
+        console.log(e);
+    }
+});
+
 
 // ##################### Quotes #######################
 

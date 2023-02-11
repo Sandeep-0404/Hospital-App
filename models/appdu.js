@@ -26,11 +26,24 @@ const User=new mongoose.Schema({
     user:{
         type:String,
     },
-    appointmentDetails:{
-        type:AppointmentDetails,
+    date:{
+        type:String,
     },
-    chats:{
-        type:[Chats],
+    problem:{
+        type:String,
+    },
+    image:{
+        type:String,
+    },
+    status:
+    {
+        type:String,
+    },
+    username:{
+        type:String,
+    },
+    doctorname:{
+        type:String
     }
 })
 
@@ -41,10 +54,6 @@ const appUDSchema=new mongoose.Schema({
     },
     users:{
         type:[User],
-    },
-    status:
-    {
-        type:String,
     },
 })
 // appUDSchema.plugin(uniqueValidator)
